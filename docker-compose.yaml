@@ -1,0 +1,17 @@
+services:
+  watchtower:
+    image: nickfedor/watchtower:latest
+    container_name: watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_POLL_INTERVAL=60
+    command: ["express-app"]
+  
+  express-app:
+    image: thomasdawson/express-app:latest
+    container_name: express-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
